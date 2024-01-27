@@ -11,15 +11,15 @@ class RandomSize:
     @classmethod
     def INPUT_TYPES(cls):
         return {
-            "required": {},
+            "required": { "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}) },
         }
     RETURN_TYPES = ("INT","INT")
     RETURN_NAMES = ("width","height")
     FUNCTION = "func"
-    def func(self:str):
+    def func(self:str,seed):
         sizes = read_config('sizes')
         print(sizes)
-        rand_obj = random.Random()
+        rand_obj = random.Random(seed)
         size = rand_obj.choice(sizes)
         x, y = [int(v) for v in size.split('x')]
         return (x,y)
