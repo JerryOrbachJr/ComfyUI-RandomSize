@@ -18,7 +18,7 @@ class RandomSize:
     FUNCTION = "func"
     def func(self:str):
         sizes = read_config('sizes')
-        rand_obj = random.random.Random()
+        rand_obj = random.Random()
         idx = rand_obj.randint(0, len(sizes))
         size = sizes[idx]
         x, y = [int(v) for v in size.split('x')]
