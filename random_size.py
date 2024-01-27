@@ -20,7 +20,9 @@ class RandomSize:
         sizes = read_config('sizes')
         rand_obj = random.random.Random()
         idx = rand_obj.randint(0, len(sizes))
+        print(idx)
         size = sizes[idx]
+        print(size)
         x, y = [int(v) for v in size.split('x')]
         return (x,y)
     
