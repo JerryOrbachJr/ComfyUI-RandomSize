@@ -7,7 +7,7 @@ def read_config(item):
         return yaml.safe_load(file)[item]
 
 class RandomSize:
-    CATEGORY = "quicknodes"
+    CATEGORY = "utils"
     RETURN_TYPES = ("INT","INT")
     RETURN_NAMES = ("width","height")
     FUNCTION = "func"
