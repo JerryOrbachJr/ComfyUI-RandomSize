@@ -8,9 +8,11 @@ def read_config(item):
 
 class RandomSize:
     CATEGORY = "utils"
-    @classmethod    
-    def INPUT_TYPES(s):
-        return { "required":{} }
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {},
+        }
     RETURN_TYPES = ("INT","INT")
     RETURN_NAMES = ("width","height")
     FUNCTION = "func"
