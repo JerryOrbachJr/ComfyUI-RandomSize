@@ -18,6 +18,7 @@ class RandomSize:
     FUNCTION = "func"
     def func(self:str):
         sizes = read_config('sizes')
+        print(sizes)
         rand_obj = random.Random()
         size = rand_obj.choice(sizes)
         x, y = [int(v) for v in size.split('x')]
