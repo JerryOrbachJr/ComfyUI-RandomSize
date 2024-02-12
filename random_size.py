@@ -22,7 +22,7 @@ class RandomSize:
     CATEGORY = "utils"
     @classmethod
     def INPUT_TYPES(cls):
-        preset = ["Preset"]  # 20
+        preset = ["Preset"]
         preset += load_presets()
         return {
             "required": { 
@@ -37,6 +37,5 @@ class RandomSize:
         sizes = get_sizes_from_preset_file(preset)
         rand_obj = random.Random(seed)
         size = rand_obj.choice(sizes)
-        x, y = [int(v) for v in size.split('x')]
-        return (x,y)
-    
+        w, h = [int(i) for i in size.split('x')]
+        return (w,h)
