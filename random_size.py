@@ -1,8 +1,11 @@
 import yaml, os, random
 sizes_dir = os.path.join(os.path.dirname(__file__), "sizes")
 sizes_dir = os.path.abspath(sizes_dir)
+custom_sizes_dir = os.path.join(os.path.dirname(__file__), "sizes","custom")
+custom_sizes_dir = os.path.abspath(custom_sizes_dir)
 
-def read_config(preset_file):
+
+def get_sizes_from_preset_file(preset_file):
     if preset_file == "Preset":
         preset_file_path = os.path.join(sizes_dir,"SD1.5.yaml")
     else:
@@ -11,8 +14,9 @@ def read_config(preset_file):
         return yaml.safe_load(file)['sizes']
 
 def load_presets():
-    preset_list = [file for file in os.listdir(sizes_dir) if file.endswith(".yaml")]
-    return preset_list
+    default_list = [dfile for dfile in os.listdir(sizes_dir) if dfile.endswith(".yaml")]
+    user_list = [ufile for ufile in os.listdir(custom_sizes_dir) if ufile.endswith(".yaml")]
+    return default_list + user_list
 
 class RandomSize:
     CATEGORY = "utils"
@@ -30,7 +34,7 @@ class RandomSize:
     RETURN_NAMES = ("width","height")
     FUNCTION = "func"
     def func(self:str,seed, preset):
-        sizes = read_config(preset)
+        sizes = get_sizes_from_preset_file(preset)
         rand_obj = random.Random(seed)
         size = rand_obj.choice(sizes)
         x, y = [int(v) for v in size.split('x')]
