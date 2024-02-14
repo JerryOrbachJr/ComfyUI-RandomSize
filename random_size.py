@@ -1,4 +1,5 @@
 import yaml, os, random
+from server import PromptServer
 sizes_dir = os.path.join(os.path.dirname(__file__), "sizes")
 sizes_dir = os.path.abspath(sizes_dir)
 custom_sizes_dir = os.path.join(os.path.dirname(__file__), "sizes","custom")
@@ -29,12 +30,14 @@ class RandomSize:
                 "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
                 "preset": (preset,)
             },
+            "hidden": {"id":"UNIQUE_ID"}
         }
     RETURN_TYPES = ("INT","INT")
     RETURN_NAMES = ("width","height")
     FUNCTION = "func"
-    def func(self:str,seed, preset):
+    def func(self:str,seed, preset,id):
         sizes = get_sizes_from_preset_file(preset)
+        PromptServer.instance.send_sync("jojr.random-sizes.sendmessage", {"id": id, "message":sizes})
         rand_obj = random.Random(seed)
         size = rand_obj.choice(sizes)
         w, h = [int(i) for i in size.split('x')]
