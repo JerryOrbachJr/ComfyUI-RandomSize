@@ -37,8 +37,13 @@ class RandomSize:
     FUNCTION = "func"
     def func(self:str,seed, preset,id):
         sizes = get_sizes_from_preset_file(preset)
-        PromptServer.instance.send_sync("jojr.random-sizes.sendmessage", {"id": id, "message":sizes})
+        
         rand_obj = random.Random(seed)
         size = rand_obj.choice(sizes)
+        for i in range(len(sizes)):
+            if sizes[i] == size:
+                sizes[i] = f"*{size}*"
+    
+        PromptServer.instance.send_sync("jojr.random-sizes.sendmessage", {"id": id, "message":sizes})
         w, h = [int(i) for i in size.split('x')]
         return (w,h)
