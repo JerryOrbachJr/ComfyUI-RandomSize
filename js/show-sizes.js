@@ -74,9 +74,11 @@ const ext = {
 
                 if (!sizes || !sizes.length) return;
 
-                sizeIndexWidget.options.max = sizes.length;
-                if(sizeIndexWidget.options.value > sizes.length) {
-                    sizeIndexWidget.options.value = sizes.length;
+                const maxSeed = sizes.length - 1;
+
+                sizeIndexWidget.options.max = maxSeed;
+                if(sizeIndexWidget.options.value > maxSeed) {
+                    sizeIndexWidget.options.value = maxSeed;
                 }
 
                 this.triggerSlot(0);
