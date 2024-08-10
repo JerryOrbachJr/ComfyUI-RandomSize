@@ -57,8 +57,12 @@ class RandomSize:
     def func(self:str,seed, preset,id):
         sizes = get_sizes_from_preset_file(preset)
 
-        rand_obj = random.Random(seed)
-        size = rand_obj.choice(sizes)
+        if 0 <= seed < len(sizes):
+            size = sizes[seed]
+        else:
+          rand_obj = random.Random(seed)
+          size = rand_obj.choice(sizes)
+
         for i in range(len(sizes)):
             if sizes[i] == size:
                 sizes[i] = f"*{size}*"
