@@ -1,6 +1,6 @@
 # ComfyUI-RandomSize
 
-A ComfyUI custom node that randomly selects a height and width pair from a list in a config file. 
+A ComfyUI custom node that randomly selects a height and width pair from a list in a config file.
 The core use is to provide variety in generations of large numbers of images at once.
 
 Presets included:
@@ -20,7 +20,7 @@ git clone https://github.com/JerryOrbachJr/ComfyUI-RandomSize.git
 ```
 
 ## Usage
-* Select a seed. The same seed should produce the same size every time
+* Select a seed. The seed is the index of a size in the yaml file, startting with 0. The same seed will always give the same output. Set control after generate to fix to fix the output.
 * Control After(/Before) Generate: set to increment, decrement, or random to get a random size from the preset each generation.
 * Select a preset. The default preset is SD 1.5 if none is chosen.
 * Run your queue.
