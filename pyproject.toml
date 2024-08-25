@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-randomsize"
 description = "A ComfyUI custom node that randomly selects a height and width pair from a list in a config file"
-version = "1.0.0"
+version = "1.0.1"
 license = "LICENSE"
 
 [project.urls]
