@@ -9,6 +9,6 @@ Repository = "https://github.com/JerryOrbachJr/ComfyUI-RandomSize"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "jerry-orbach-jr"
 DisplayName = "ComfyUI-RandomSize"
 Icon = ""
