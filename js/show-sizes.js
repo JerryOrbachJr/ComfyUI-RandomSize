@@ -30,6 +30,65 @@ const ext = {
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if (nodeType.comfyClass=="JOJR_RandomSize" ) {
             nodeType.prototype.displayMessage = displayMessage;
+            const originalNodeCreated = nodeType.prototype.onNodeCreated;
+            nodeType.prototype.onNodeCreated = async function () {
+              if (originalNodeCreated) {
+                originalNodeCreated.apply(this, arguments);
+              }
+
+              const presetWidget = this.widgets.find((w) => w.name === "preset");
+              const sizeIndexWidget = this.widgets.find((w) => w.name === "seed");
+
+              const fetchSizes = async (preset) => {
+                try {
+                  const response = await fetch("/JOJR_RandomSize/get_sizes", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      preset: preset,
+                    }),
+                  });
+
+                  if (response.ok) {
+                    const sizes = await response.json();
+                    console.log("Fetched sizes:", sizes);
+                    return sizes;
+                  } else {
+                    console.error(`Failed to fetch sizes: ${response.status}`);
+                    return [];
+                  }
+                } catch (error) {
+                  console.error(`Error fetching sizes for preset ${preset}:`, error);
+                  return [];
+                }
+              };
+
+              const updateSizeIndex = async () => {
+                const preset = presetWidget.value;
+
+                console.log(`Selected preset: ${preset}`);
+
+                const sizes = await fetchSizes(preset);
+
+                if (!sizes || !sizes.length) return;
+
+                const maxSeed = sizes.length - 1;
+
+                sizeIndexWidget.options.max = maxSeed;
+                if(sizeIndexWidget.options.value > maxSeed) {
+                    sizeIndexWidget.options.value = maxSeed;
+                }
+
+                this.triggerSlot(0);
+              };
+
+              presetWidget.callback = updateSizeIndex;
+
+              // Initial update
+              await updateSizeIndex();
+            };
         }
     }
 }
