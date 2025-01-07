@@ -2,7 +2,7 @@
 name = "comfyui-randomsize"
 description = "A ComfyUI custom node that randomly selects a height and width pair from a list in a config file"
 version = "1.0.1"
-license = "LICENSE"
+license = { file = "LICENSE" }
 
 [project.urls]
 Repository = "https://github.com/JerryOrbachJr/ComfyUI-RandomSize"
